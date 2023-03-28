@@ -16,9 +16,9 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   double sizeIcon = 300;
-  int red = 0;
-  int blue = 0;
-  int green = 0;
+  double red = 0;
+  double blue = 0;
+  double green = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -71,15 +71,15 @@ class _MyAppState extends State<MyApp> {
         children: [
           Center(
               child:
-                  Icon(Icons.alarm, size: sizeIcon, color: Color.fromRGBO(red, green, blue, 50))),
+                  Icon(Icons.alarm, size: sizeIcon, color: Color.fromRGBO(red.toInt(), green.toInt(), blue.toInt(), 50))),
           Slider(
             min: 0,
             max: 255,
             divisions: 255,
-            value: 0,
+            value: red,
             onChanged: (double value) {
               setState(() {
-                red = int.tryParse(value)!;
+              red = value;
               });
             },
             activeColor: Colors.red,
@@ -88,10 +88,10 @@ class _MyAppState extends State<MyApp> {
             min: 0,
             max: 255,
             divisions: 255,
-            value: 0,
+            value: green,
             onChanged: (double value) {
               setState(() {
-                
+                green = value;
               });
             },
             activeColor: Colors.green,
@@ -100,10 +100,10 @@ class _MyAppState extends State<MyApp> {
             min: 0,
             max: 255,
             divisions: 255,
-            value: 0,
+            value: blue,
             onChanged: (double value) {
               setState(() {
-                
+                blue = value;
               });
             },
             activeColor: Colors.blue,
