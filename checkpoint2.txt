@@ -1,0 +1,87 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: ContactsPage(),
+    );
+  }
+}
+
+class ContactsPage extends StatefulWidget {
+  @override
+  State<ContactsPage> createState() => _ContactsPageState();
+}
+
+class _ContactsPageState extends State<ContactsPage> {
+  final contacts = [
+    Contact(
+      name: "José",
+      email: 'jose@gmail.com',
+      fav: false,
+    ),
+    Contact(name: "Laura", email: 'lauran@rhyta.com', fav: false),
+    Contact(name: "Davi", email: 'davi@dayrep.com', fav: false),
+    Contact(name: "Paula", email: 'paula@dayrep.com', fav: false),
+    Contact(name: "Pedro", email: 'pedro@dayrep.com', fav: false),
+  ];
+
+  var cont = 0;
+  var colorIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Contatos favoritos: $cont'),
+      ),
+      body: ListView.builder(
+        itemCount: contacts.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            leading: CircleAvatar(
+              backgroundImage: NetworkImage('https://i.pravatar.cc/150'),
+            ),
+            title: Text(contacts[index].name),
+            subtitle: Text(contacts[index].email),
+            trailing: IconButton(
+                onPressed: (() {
+                  setState(() {
+                  if (contacts[index].fav){
+                    contacts[index].fav = false;
+                    cont--;}
+                  else{
+                    contacts[index].fav = true;
+                    cont++;
+                    
+                  } 
+                  }
+                  );
+                }),
+                icon: Icon(Icons.favorite), color:  contacts[index].fav ? Colors.red : Colors.grey ),
+          );
+        },
+      ),
+    );
+  }
+
+}
+
+class Contact {
+  String name;
+  String email;
+  bool fav;
+
+  Contact({required this.name, required this.email, required this.fav});
+}
